@@ -4,7 +4,7 @@ version = "0.0.1"
 authors = [
   { name="Johann Frei", email="johann_frei@yahoo.de" },
 ]
-description = "A small util to parse and process annotated text corpora"
+description = "A small tool to parse and process annotated text corpora"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
