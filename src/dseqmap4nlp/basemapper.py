@@ -39,7 +39,7 @@ class BaseMapper():
         return (text_start, text_stop)
 
 
-    def mapTextSpanToDSeqSpan(self, text_span: tuple[int,int], mode: Literal["strict", "contract", "expand"] = "strict") -> Optional[Tuple[int,int]]:
+    def mapTextSpanToDSeqSpan(self, text_span: Tuple[int,int], mode: Literal["strict", "contract", "expand"] = "strict") -> Optional[Tuple[int,int]]:
         if mode not in ["strict", "contract", "expand"]:
             raise ValueError("Unknown mode {}. Use one of: {}".format(
                 repr(mode),

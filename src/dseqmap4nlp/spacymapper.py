@@ -1,12 +1,13 @@
 import sys
 import spacy
 from spacy.language import Language
+from typing import Union
 from dseqmap4nlp import BaseMapper
 
 class SpacySequenceMapper(BaseMapper):
     spacy_cache = {}
 
-    def __init__(self, text: str, nlp: str | Language = None):
+    def __init__(self, text: str, nlp: Union[str, Language] = None):
         if text is None:
             raise ValueError("Parameter text is None.")
 
