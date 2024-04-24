@@ -1,6 +1,6 @@
 [project]
 name = "dseqmap4nlp"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Johann Frei", email="johann_frei@yahoo.de" },
 ]
