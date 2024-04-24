@@ -22,23 +22,40 @@ samples = [
 for sample in samples:
     text = sample["text"]
     anns = sample["label"]
+    # Mapper @ Chars <-> SpaCy Tokens
     mapper = SpacySequenceMapper(text, nlp="de")
+    # (trivial) Mapper @ Chars <-> Chars
     charmapper = CharSequenceMapper(text=text)
 
+    # Load annotation data
+    # assuming the format: [ (start_idx, stop_idx, label_class), ...]
+    # and merge it with to a certain (char <-> discrete sequence) mapper
     annotationset = LabelLoader.from_text_spans(anns, mapper)
+    
+    # Determine number fo overlaps
     print("Overlaps:", annotationset.countOverlaps())
 
+    # Apply the following transformations to the annotation data:
+    # - transform char-based labels onto discretized sequence items (e.g. tokens)
+    #   -> Expand if a label's char bounds are not exactly at token bounds
+    # - Remove shorter spans in case of overlapping spans
+    #   -> Note: New overlaps could also be introduced by span expansion!
     filtered_spans = annotationset\
         .toDSeqSpans(strategy=["expand"])\
         .withoutOverlaps(strategy="prefer_longest", merge_same_classes=True)
+
+    # Check overlaps again (No overlap should exist anymore!)
     print("Overlaps:", filtered_spans.countOverlaps())
 
+    # Transform annotation data into IOB2-formatted sequence.
     print("Sequence:")
     print(filtered_spans.toFormattedSequence(schema="IOB2"))
-    print("Previous sequence:")
+
+    # Try to generate an IOB2 sequence with overlaps. (It should fail!)
+    print("Previous sequence (should fail):")
     try:
         # Should raise an error...
         print(annotationset.toFormattedSequence(schema="IOB2"))
-    except Exception as e:
+    except ValueError as e:
         print("Error raised: " + repr(e))
 ```

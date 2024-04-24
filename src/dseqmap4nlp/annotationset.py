@@ -178,8 +178,6 @@ class AnnotationSet:
         return AnnotationSet(self.entries, self.level, mapper)
 
     def toFormattedSequence(self, schema: Literal["IOB2", "plain"] = "IOB2"):
-        if self.level != "dseq":
-            raise ValueError("Convert to dseq spans first.")
         if self.mapper is None:
             raise ValueError("No mapper is set.")
         if not schema in ["IOB2", "plain"]:
@@ -218,4 +216,5 @@ class AnnotationSet:
         if with_text:
             if self.mapper is None:
                 raise ValueError("No mapper assigned.")
-            {"text": self.mapper.getText(), "label": self.entries}
+            return {"text": self.mapper.getText(), "label": self.entries}
+        return self.entries
