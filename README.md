@@ -1,6 +1,6 @@
 # DSeqMap for NLP
 
-This tool handles annotation data for named-enitity-recognition (NER) that support token-wise (discrete sequences) and character-wise (text) representations and can translate between these representations.
+This tool handles annotation data for named-entity-recognition (NER) that support token-wise (discrete sequences) and character-wise (text) representations and can translate between these representations.
 
 ### Install
 Use `pip install dseqmap4nlp` to install the package.
