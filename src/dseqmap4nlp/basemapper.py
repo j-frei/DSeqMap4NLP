@@ -124,7 +124,7 @@ class BaseMapper():
                     start += 1
 
             # contract to next right sequence item, if we are outside the dseq items
-            if self.txt2seq[start] == -1:
+            if start < n_text and self.txt2seq[start] == -1:
                 while start < n_text and self.txt2seq[start] == -1:
                     start += 1
 
